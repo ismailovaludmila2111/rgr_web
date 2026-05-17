@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расчётно-графичсекое задание. Исмаилова Людмила Равшановна</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+            color: #1a1a1a;
+            background-color: #f5f0e8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+ 
+        header {
+            background-color: #1a3a5c;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+ 
+        .page-wrapper {
+            display: flex;
+            flex: 1;
+        }
+ 
+        nav {
+            width: 200px;
+            min-width: 200px;
+            background-color: #1a3a5c;
+            padding: 30px 0;
+        }
+ 
+        nav a {
+            display: block;
+            color: #c8d8e8;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 15px;
+            border-left: 4px solid transparent;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+ 
+        nav a:hover {
+            background-color: #2a5a8c;
+            color: white;
+            border-left-color: #f0a500;
+        }
+ 
+        nav a.active {
+            color: #f0a500;
+            border-left-color: #f0a500;
+            background-color: #0f2840;
+        }
+ 
+        main {
+            flex: 1;
+            padding: 40px 50px;
+            max-width: 900px;
+        }
+ 
+        .company-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1a3a5c;
+        }
+ 
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            background-color: #1a3a5c;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f0a500;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+ 
+        .company-title h1 {
+            font-size: 26px;
+            color: #1a3a5c;
+            margin-bottom: 6px;
+        }
+ 
+        .company-title p {
+            color: #555;
+            font-size: 14px;
+        }
+ 
+        section {
+            margin-bottom: 40px;
+        }
+ 
+        h2 {
+            font-size: 20px;
+            color: #1a3a5c;
+            margin-bottom: 14px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #c8d8e8;
+        }
+ 
+        p {
+            line-height: 1.7;
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+ 
+        strong {
+            color: #1a3a5c;
+        }
+ 
+        em {
+            color: #444;
+        }
+ 
+        u {
+            text-decoration-color: #f0a500;
+        }
+ 
+        a.text-link {
+            color: #1a3a5c;
+            text-decoration: underline;
+        }
+ 
+        a.text-link:hover {
+            color: #f0a500;
+        }
+ 
+        .facts-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+ 
+        .facts-table td {
+            padding: 10px 14px;
+            border: 1px solid #c8d8e8;
+            font-size: 15px;
+            vertical-align: top;
+        }
+ 
+        .facts-table td:first-child {
+            background-color: #1a3a5c;
+            color: white;
+            font-weight: bold;
+            width: 180px;
+        }
+ 
+        .facts-table td:last-child {
+            background-color: white;
+        }
+ 
+        .directions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+ 
+        .direction-card {
+            background-color: white;
+            border: 2px solid #c8d8e8;
+            border-top: 4px solid #1a3a5c;
+            border-radius: 4px;
+            padding: 16px;
+            flex: 1;
+            min-width: 160px;
+        }
+ 
+        .direction-card h3 {
+            font-size: 15px;
+            color: #1a3a5c;
+            margin-bottom: 8px;
+        }
+ 
+        .direction-card p {
+            font-size: 14px;
+            color: #555;
+            margin: 0;
+        }
+ 
+        .photo-row {
+            display: flex;
+            gap: 16px;
+            margin: 20px 0;
+        }
+ 
+        .photo-placeholder {
+            flex: 1;
+            height: 180px;
+            background-color: #c8d8e8;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a3a5c;
+            font-size: 13px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #a0b8d0;
+        }
+ 
+        .timeline {
+            border-left: 4px solid #1a3a5c;
+            padding-left: 24px;
+            margin-left: 10px;
+        }
+ 
+        .timeline-item {
+            position: relative;
+            margin-bottom: 22px;
+        }
+ 
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            background-color: #f0a500;
+            border: 2px solid #1a3a5c;
+            border-radius: 50%;
+        }
+ 
+        .timeline-year {
+            font-weight: bold;
+            color: #1a3a5c;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+ 
+        .timeline-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+ 
+        #btn-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 46px;
+            height: 46px;
+            background-color: #1a3a5c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;          
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: background-color 0.2s;
+        }
+ 
+        #btn-top:hover {
+            background-color: #f0a500;
+        }
+ 
+        footer {
+            background-color: #1a3a5c;
+            color: #c8d8e8;
+            text-align: center;
+            padding: 14px 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+ 
+    <header>
+        НГТУ, ФБ, Расчётно-графическое задание
+    </header>
+ 
+    <div class="page-wrapper">
+ 
+        <nav>
+            <a href="about.html" class="active">О компании</a>
+            <a href="news.html">Новости</a>
+            <a href="currency.html">Курс валют</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="video.html">Видео</a>
+        </nav>
+ 
+        <main>
+ 
+            <div class="company-header">
+                <div class="company-logo">НПЗ</div>
+                <div class="company-title">
+                    <h1>Саратовский нефтеперерабатывающий завод</h1>
+                    <p>ПАО «Саратовский НПЗ» · Тикер: KRKN · г. Саратов</p>
+                </div>
+            </div>
+ 
+            <section>
+                <h2>Общие сведения</h2>
+                <table class="facts-table">
+                    <tr>
+                        <td>Полное название</td>
+                        <td>Публичное акционерное общество «Саратовский нефтеперерабатывающий завод»</td>
+                    </tr>
+                    <tr>
+                        <td>Год основания</td>
+                        <td><strong>1934</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Расположение</td>
+                        <td>Россия, г. Саратов, ул. Производственная, 1</td>
+                    </tr>
+                    <tr>
+                        <td>Акционер</td>
+                        <td>ПАО «НК «Роснефть»</td>
+                    </tr>
+                    <tr>
+                        <td>Мощность переработки</td>
+                        <td>около <strong>7 млн тонн</strong> нефти в год</td>
+                    </tr>
+                    <tr>
+                        <td>Биржевой тикер</td>
+                        <td>KRKN (Московская биржа)</td>
+                    </tr>
+                    <tr>
+                        <td>Официальный сайт</td>
+                        <td>
+                            <a class="text-link" href="https://www.rosneft.ru/about/Glance/OperationalStructure/Pererabotka/sarnpz/" target="_blank">www.rosneft.ru</a>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+ 
+            <section>
+                <h2>Направления деятельности</h2>
+                <p>
+                    <strong>Саратовский НПЗ</strong> — одно из старейших нефтеперерабатывающих предприятий России.
+                    Завод специализируется на <u>глубокой переработке нефти</u> и производстве широкого
+                    ассортимента нефтепродуктов, соответствующих современным экологическим стандартам.
+                </p>
+                <div class="directions">
+                    <div class="direction-card">
+                        <h3>Топлива</h3>
+                        <p>Автомобильные бензины класса «Евро-5», дизельное топливо, авиационный керосин.</p>
+                    </div>
+                    <div class="direction-card">
+                        <h3>Нефтехимия</h3>
+                        <p>Производство сырья для нефтехимической промышленности: битум, мазут, нафта.</p>
+                    </div>
+                    <div class="direction-card">
+                        <h3>Масла</h3>
+                        <p>Базовые масла и компоненты смазочных материалов для промышленности.</p>
+                    </div>
+                    <div class="direction-card">
+                        <h3>Экология</h3>
+                        <p>Программы снижения выбросов, модернизация очистных сооружений.</p>
+                    </div>
+                </div>
+            </section>
+ 
+            <div class="photo-row">
+                <div class="photo-placeholder">
+                    <br>Вид на завод<br>с высоты птичьего полёта
+                </div>
+                <div class="photo-placeholder">
+                    <br>Производственный<br>комплекс НПЗ
+                </div>
+                <div class="photo-placeholder">
+                    <br>Современное<br>оборудование завода
+                </div>
+            </div>
+ 
+            <section>
+                <h2>История компании</h2>
+                <p>
+                    История Саратовского нефтеперерабатывающего завода насчитывает <em>более 90 лет</em>.
+                    За это время предприятие прошло путь от небольшого регионального завода до
+                    <strong>крупного современного нефтеперерабатывающего комплекса</strong>, входящего
+                    в структуру одной из крупнейших нефтяных компаний мира — ПАО «НК «Роснефть».
+                </p>
+ 
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1934</div>
+                        <div class="timeline-text">
+                            Основание завода. Предприятие начало работу как <strong>Саратовский
+                            нефтеперегонный завод</strong>. Первоначальная мощность составляла
+                            несколько сотен тысяч тонн нефти в год.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1941–1945</div>
+                        <div class="timeline-text">
+                            В годы <strong>Великой Отечественной войны</strong> завод работал в усиленном
+                            режиме, обеспечивая топливом фронт и тыловые предприятия. Продукция завода
+                            имела <u>стратегическое значение</u> для обороны страны.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1950–1970-е</div>
+                        <div class="timeline-text">
+                            Активное расширение и <em>модернизация производства</em>. Строительство новых
+                            технологических установок, увеличение ассортимента выпускаемой продукции.
+                            Мощность переработки выросла в несколько раз.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1990-е</div>
+                        <div class="timeline-text">
+                            Приватизация предприятия. Завод преобразован в <strong>акционерное общество</strong>.
+                            Несмотря на сложности переходного периода, производство было сохранено
+                            и продолжало работу.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2000-е</div>
+                        <div class="timeline-text">
+                            Вхождение в структуру <strong>ПАО «НК «Роснефть»</strong>. Начало масштабной
+                            инвестиционной программы по реконструкции и техническому перевооружению завода.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2010–2020-е</div>
+                        <div class="timeline-text">
+                            Реализация программы <u>повышения глубины переработки нефти</u>. Переход
+                            на выпуск топлива стандарта <strong>«Евро-5»</strong>. Внедрение современных
+                            экологических технологий и цифровизация производственных процессов.
+                        </div>
+                    </div>
+                </div>
+            </section>
+ 
+            <section>
+                <h2>Компания сегодня</h2>
+                <p>
+                    Сегодня Саратовский НПЗ — <strong>современное высокотехнологичное предприятие</strong>,
+                    оснащённое передовым оборудованием. Завод перерабатывает около
+                    <u>7 миллионов тонн нефти в год</u> и производит широкий спектр нефтепродуктов:
+                    бензины, дизельное топливо, авиационный керосин, топочный мазут, битум и другие.
+                </p>
+                <p>
+                    Предприятие является <em>градообразующим</em> для Саратова: на заводе работают
+                    тысячи жителей города и области. Завод уделяет большое внимание
+                    <strong>охране окружающей среды</strong> и социальным программам поддержки сотрудников
+                    и региона.
+                </p>
+                <p>
+                    В рамках стратегии развития <strong>ПАО «НК «Роснефть»</strong> на заводе продолжается
+                    реализация инвестиционных проектов, направленных на увеличение глубины переработки нефти,
+                    повышение выхода светлых нефтепродуктов и снижение экологической нагрузки на
+                    окружающую среду.
+                </p>
+                <p>
+                    Акции предприятия торгуются на <a class="text-link" href="https://www.moex.com" target="_blank">Московской бирже</a>
+                    под тикером <strong>KRKN</strong>.
+                </p>
+            </section>
+ 
+        </main>
+    </div>
+ 
+    <footer>
+        &copy; Исмаилова Людмила Равшановна, ФБИ-43, 2 курс, 2026
+    </footer>
+ 
+    <a id="btn-top" href="#" title="Наверх"></a>
+ 
+    <script>
+        var btnTop = document.getElementById('btn-top');
+ 
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                btnTop.style.display = 'flex';
+            } else {
+                btnTop.style.display = 'none';
+            }
+        });
+ 
+        btnTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+ 
+</body>
+</html>
