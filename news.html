@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости - ПАО "Саратовский НПЗ"</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.png">
+    <script>
+        function toggleNews(button) {
+            var fullText = button.parentElement.querySelector('.news-full');
+            if (fullText.style.display === 'block') {
+                fullText.style.display = 'none';
+                button.textContent = 'Показать';
+            } else {
+                fullText.style.display = 'block';
+                button.textContent = 'Скрыть';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnTop = document.getElementById('btn-top');
+            if (btnTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        btnTop.classList.add('show');
+                    } else {
+                        btnTop.classList.remove('show');
+                    }
+                });
+                btnTop.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <nav>
+        <a href="index.html">О компании</a>
+        <a href="news.html" class="active">Новости</a>
+        <a href="currency.html">Курс валют</a>
+        <a href="contacts.html">Контакты</a>
+        <a href="video.html">Видео</a>
+    </nav>
+
+    <main>
+        <h1>Новости</h1>
+        <p style="margin-bottom: 25px; color: #666; font-size: 13px;">Последние события Саратовского нефтеперерабатывающего завода</p>
+
+        <div class="news-grid">
+
+            <div class="news-card">
+                <div class="news-date">15 апреля 2025</div>
+                <div class="news-title">Саратовский НПЗ завершил плановый капитальный ремонт</div>
+                <div class="news-preview">На Саратовском нефтеперерабатывающем заводе успешно завершён плановый капитальный ремонт основных технологических установок. Работы выполнены в установленные сроки...</div>
+                <div class="news-full">На Саратовском нефтеперерабатывающем заводе успешно завершён плановый капитальный ремонт основных технологических установок. Работы выполнены в установленные сроки и в полном объёме. В ходе ремонта были заменены изношенные узлы и детали, проведена диагностика оборудования, обновлены системы автоматизации и контроля. Завод вышел на плановую мощность переработки.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">2 апреля 2025</div>
+                <div class="news-title">Запуск новой установки гидроочистки дизельного топлива</div>
+                <div class="news-preview">В рамках инвестиционной программы «Роснефти» на Саратовском НПЗ введена в эксплуатацию новая установка гидроочистки дизельного топлива мощностью...</div>
+                <div class="news-full">В рамках инвестиционной программы «Роснефти» на Саратовском НПЗ введена в эксплуатацию новая установка гидроочистки дизельного топлива мощностью 1,5 млн тонн в год. Установка позволяет производить дизельное топливо стандарта «Евро-5» с содержанием серы не более 10 мг/кг. Общий объём инвестиций в проект составил более 3 млрд рублей.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">18 марта 2025</div>
+                <div class="news-title">Завод получил экологическую награду правительства Саратовской области</div>
+                <div class="news-preview">Саратовский НПЗ удостоен ежегодной экологической награды правительства Саратовской области за значительные успехи в области охраны окружающей среды...</div>
+                <div class="news-full">Саратовский НПЗ удостоен ежегодной экологической награды правительства Саратовской области. По итогам 2024 года предприятие сократило выбросы загрязняющих веществ в атмосферу на 12%. На заводе введены в эксплуатацию новые очистные сооружения, установлены современные фильтры на дымовых трубах.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">5 марта 2025</div>
+                <div class="news-title">Саратовский НПЗ увеличил объём переработки нефти на 8%</div>
+                <div class="news-preview">По итогам 2024 года Саратовский нефтеперерабатывающий завод увеличил объём переработки нефти на 8% по сравнению с 2023 годом...</div>
+                <div class="news-full">По итогам 2024 года объём переработки нефти вырос на 8%. Глубина переработки достигла 85% - рекордный показатель в истории предприятия. Выход светлых нефтепродуктов увеличился до 68% от общего объёма переработки.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">20 февраля 2025</div>
+                <div class="news-title">На заводе открылся новый учебный центр для сотрудников</div>
+                <div class="news-preview">Саратовский НПЗ открыл современный учебный центр для подготовки и повышения квалификации персонала. Центр оснащён тренажёрами и симуляторами...</div>
+                <div class="news-full">Саратовский НПЗ открыл современный учебный центр, оснащённый тренажёрами технологических установок. Ежегодно в центре смогут проходить обучение более 500 сотрудников. Открытие стало частью программы развития человеческого капитала «Роснефти».</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">10 февраля 2025</div>
+                <div class="news-title">Реконструкция установки атмосферной перегонки нефти завершена</div>
+                <div class="news-preview">Завершена масштабная реконструкция ключевой установки атмосферной перегонки нефти АВТ-6. Проект реализован в рамках программы модернизации производства...</div>
+                <div class="news-full">После реконструкции установки АВТ-6 её мощность увеличена с 3 до 3,8 млн тонн в год. Применено современное российское и импортозамещённое оборудование. Срок службы обновлённого оборудования составит не менее 20 лет.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">28 января 2025</div>
+                <div class="news-title">Саратовский НПЗ внедряет систему цифрового мониторинга производства</div>
+                <div class="news-preview">На предприятии началось внедрение комплексной системы цифрового мониторинга и управления производственными процессами...</div>
+                <div class="news-full">Система позволит в режиме реального времени отслеживать параметры работы оборудования, прогнозировать его состояние и предотвращать аварийные ситуации. Завершение внедрения - конец 2025 года. Ожидаемый эффект - снижение эксплуатационных расходов на 15%.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">15 января 2025</div>
+                <div class="news-title">Завод направил 50 млн рублей на поддержку Саратова</div>
+                <div class="news-preview">В рамках программы социальной ответственности Саратовский НПЗ направил 50 миллионов рублей на поддержку социальной инфраструктуры города...</div>
+                <div class="news-full">Средства направлены на ремонт двух детских садов и школы в Заводском районе, благоустройство парка, а также приобретение оборудования для городской больницы. Общий объём социальных инвестиций за три года превысил 120 млн рублей.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">3 января 2025</div>
+                <div class="news-title">Итоги производственной деятельности за 2024 год</div>
+                <div class="news-preview">Саратовский НПЗ подвёл итоги производственной деятельности за 2024 год. Все ключевые показатели производственного плана выполнены и перевыполнены...</div>
+                <div class="news-full">Объём переработки нефти составил 6,8 млн тонн (+8% к 2023 году). Произведено 2,1 млн тонн бензинов класса «Евро-5», 2,4 млн тонн дизельного топлива, 0,6 млн тонн авиационного керосина. Глубина переработки - 85%.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <div class="news-date">20 декабря 2024</div>
+                <div class="news-title">Саратовский НПЗ прошёл ежегодный аудит системы менеджмента качества</div>
+                <div class="news-preview">Предприятие успешно прошло ежегодный надзорный аудит системы менеджмента качества на соответствие требованиям ISO 9001...</div>
+                <div class="news-full">Аудит проводился независимой сертификационной организацией. Выявленных несоответствий не обнаружено. Аудиторы отметили высокий уровень организации производственных процессов и документооборота. Сертификат соответствия продлён на очередной год.</div>
+                <button class="btn-toggle" onclick="toggleNews(this)">Показать</button>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<a id="btn-top" href="#" title="Наверх">Наверх</a>
+
+<footer> ©2026. СНПЗ. Все права защищены </footer>
+
+</body>
+</html>
