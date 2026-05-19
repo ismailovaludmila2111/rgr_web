@@ -9,22 +9,20 @@
     <link rel="icon" href="favicon-32x32.png">
     <link rel="icon" href="favicon-16x16.png">
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var btnTop = document.getElementById('btn-top');
-            if (btnTop) {
-                window.addEventListener('scroll', function() {
-                    if (window.scrollY > 300) {
-                        btnTop.classList.add('show');
-                    } else {
-                        btnTop.classList.remove('show');
-                    }
+        (function() {
+            const btnTop = document.getElementById('btn-top');
+            
+            btnTop.style.opacity = '1';
+            btnTop.style.visibility = 'visible';
+            
+            btnTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
-                btnTop.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-        });
+            });
+        })();
     </script>
 </head>
 <body>
@@ -42,27 +40,25 @@
         <h1>Видео</h1>
         <p style="margin-bottom: 25px; color: #666; font-size: 13px;">Видеоматериалы о Саратовском нефтеперерабатывающем заводе и нефтепереработке</p>
 
-        <div class="video-card">
-            <h3>Обзор ПАО «Саратовский НПЗ»</h3>
-            <div class="video-meta">YouTube,  Conomy</div>
-            <p class="video-description">Ведущий расскажет о положении компании на рынке, ее финансовых показателях  и дивидендной истории, производственных мощностях и структуре формирования выручки.</p>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube-nocookie.com/embed/SZhEcLiV6Vw" referrerpolicy="strict-origin-when-cross-origin" title="Нефтепереработка: от нефти до топлива" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <a class="video-link" href="https://www.youtube.com/watch?v=SZhEcLiV6Vw" target="_blank">Открыть на YouTube</a>
-        </div> 
-        
-       <div class="video-card">
-            <h3>День открытых дверей на ПАО "Саратовский НПЗ"</h3>
-            <div class="video-meta">VK Видео, ПАО "Саратовский НПЗ"</div>
-            <p class="video-description">Репортаж с дня открытых дверей на Саратовском нефтеперерабатывающем заводе. Журналисты телеканала Россия-1 показывают производственные мощности предприятия, берут интервью у сотрудников и рассказывают о работе завода изнутри.</p>
-            <div class="video-wrapper">
-                <iframe src="https://vk.com/video_ext.php?oid=-168811545&id=456239042&hd=2" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <a class="video-link" href="https://vk.com/video-168811545_456239042" target="_blank">Открыть на VK Видео</a>
-        </div>                
+<div class="video-card">
+    <h3>Обзор ПАО «Саратовский НПЗ»</h3>
+    <div class="video-meta">YouTube, Conomy</div>
+    <p class="video-description">Ведущий расскажет о положении компании на рынке, ее финансовых показателях и дивидендной истории, производственных мощностях и структуре формирования выручки.</p>
 
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+        <iframe 
+            src="https://www.youtube-nocookie.com/embed/SZhEcLiV6Vw?rel=0"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            referrerpolicy="strict-origin-when-cross-origin"
+            title="Нефтепереработка: от нефти до топлива"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+        </iframe>
+    </div>
 
+    <a class="video-link" href="https://www.youtube.com/watch?v=SZhEcLiV6Vw" target="_blank">Открыть на YouTube</a>
+</div>           
 
 <a id="btn-top" href="#" title="Наверх">Наверх</a>
 
