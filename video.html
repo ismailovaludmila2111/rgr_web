@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видео - ПАО "Саратовский НПЗ"</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.png">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnTop = document.getElementById('btn-top');
+            if (btnTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        btnTop.classList.add('show');
+                    } else {
+                        btnTop.classList.remove('show');
+                    }
+                });
+                btnTop.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <nav>
+        <a href="index.html">О компании</a>
+        <a href="news.html">Новости</a>
+        <a href="currency.html">Курс валют</a>
+        <a href="contacts.html">Контакты</a>
+        <a href="video.html" class="active">Видео</a>
+    </nav>
+
+    <main>
+        <h1>Видео</h1>
+        <p style="margin-bottom: 25px; color: #666; font-size: 13px;">Видеоматериалы о Саратовском нефтеперерабатывающем заводе и нефтепереработке</p>
+
+        <div class="video-card">
+            <h3>День открытых дверей на ПАО "Саратовский НПЗ"</h3>
+            <div class="video-meta">VK Видео, ПАО "Саратовский НПЗ"</div>
+            <p class="video-description">Репортаж с дня открытых дверей на Саратовском нефтеперерабатывающем заводе. Журналисты телеканала Россия-1 показывают производственные мощности предприятия, берут интервью у сотрудников и рассказывают о работе завода изнутри.</p>
+            <div class="video-wrapper">
+                <iframe src="https://vk.com/video_ext.php?oid=-168811545&id=456239042&hd=2" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <a class="video-link" href="https://vk.com/video-168811545_456239042" target="_blank">Открыть на VK Видео</a>
+        </div>                
+        
+        <div class="video-card">
+            <h3>Саратовский НПЗ I Переработка нефти в бензин I Дочка Роснефти</h3>
+            <div class="video-meta">YouTube, Market Power</div>
+            <p class="video-description">Видео рассказывает о работе Саратовского нефтеперерабатывающего завода, входящего в структуру ПАО «НК «Роснефть». На примере предприятия показан полный технологический цикл переработки нефти — от поступления сырья до выпуска готовой продукции.</p>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube-nocookie.com/embed/eGFK6vq0O6U" referrerpolicy="strict-origin-when-cross-origin" title="Саратовский НПЗ: современное производство и экология" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <a class="video-link" href="https://www.youtube.com/watch?v=eGFK6vq0O6U" target="_blank">Открыть на YouTube</a>
+        </div>
+
+        <div class="video-card">
+            <h3>Обзор ПАО «Саратовский НПЗ»</h3>
+            <div class="video-meta">YouTube,  Conomy</div>
+            <p class="video-description">Ведущий расскажет о положении компании на рынке, ее финансовых показателях  и дивидендной истории, производственных мощностях и структуре формирования выручки.</p>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube-nocookie.com/embed/SZhEcLiV6Vw" referrerpolicy="strict-origin-when-cross-origin" title="Нефтепереработка: от нефти до топлива" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <a class="video-link" href="https://www.youtube.com/watch?v=SZhEcLiV6Vw" target="_blank">Открыть на YouTube</a>
+        </div>
+
+<a id="btn-top" href="#" title="Наверх">Наверх</a>
+
+<footer> ©2026. СНПЗ. Все права защищены </footer>
+
+</body>
+</html>
