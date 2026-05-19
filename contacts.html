@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контактные данные - ПАО "Саратовский НПЗ"</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.png">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnTop = document.getElementById('btn-top');
+            if (btnTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        btnTop.classList.add('show');
+                    } else {
+                        btnTop.classList.remove('show');
+                    }
+                });
+                btnTop.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <nav>
+        <a href="index.html">О компании</a>
+        <a href="news.html">Новости</a>
+        <a href="currency.html">Курс валют</a>
+        <a href="contacts.html" class="active">Контакты</a>
+        <a href="video.html">Видео</a>
+    </nav>
+
+    <main>
+        <h1>Контактные данные</h1>
+        <p style="margin-bottom: 25px; color: #666; font-size: 13px;">Саратовский нефтеперерабатывающий завод — ПАО «Саратовский НПЗ»</p>
+
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <h3>Юридическая информация</h3>
+                <div class="contact-row">
+                    <div class="contact-item"><strong>Полное наименование</strong>ПАО «Саратовский нефтеперерабатывающий завод»</div>
+                    <div class="contact-item"><strong>Юридическое название</strong>ПАО «Саратовский НПЗ»</div>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h3>Адрес</h3>
+                <div class="contact-row">
+                    <div class="contact-item"><strong>Юридический адрес</strong>410022, г. Саратов, ул. Брянская, 1</div>
+                    <div class="contact-item"><strong>Почтовый индекс</strong>410022</div>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h3>Телефоны</h3>
+                <div class="contact-row">
+                    <div class="contact-item"><strong>Приёмная</strong><a href="tel:+78452473060">+7 (8452) 47-30-60</a></div>
+                    <div class="contact-item"><strong>Приёмная (доп.)</strong><a href="tel:+78452473065">+7 (8452) 47-30-65</a></div>
+                    <div class="contact-item"><strong>Факс</strong><a href="tel:+78452473138">+7 (8452) 47-31-38</a></div>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h3>Электронная почта</h3>
+                <div class="contact-row">
+                    <div class="contact-item"><strong>Общий адрес</strong><a href="mailto:sar-npz-office@srnpz.rosneft.ru">sar-npz-office@srnpz.rosneft.ru</a></div>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h3>Сайт</h3>
+                <div class="contact-row">
+                    <div class="contact-item"><strong>Официальный сайт</strong><a href="https://www.rosneft.ru" target="_blank">www.rosneft.ru</a></div>
+                    <div class="contact-item">Другие официальные интернет-сайты отсутствуют.</div>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h3>Как добраться</h3>
+                <div class="contact-row">
+                    <div class="contact-item"><strong>Автобус</strong>Маршруты № 11, 32, 45 — остановка «Нефтезавод»</div>
+                    <div class="contact-item"><strong>На автомобиле</strong>По ул. Брянская, въезд через КПП</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-section">
+            <h2>Карта расположения</h2>
+            <div class="map-wrapper">
+                <iframe 
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=45.912747%2C51.44168%2C45.952747%2C51.48168&layer=mapnik&marker=51.46168%2C45.932747"
+                    title="Карта расположения Саратовского НПЗ"
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p class="map-note">
+                Карта: <a href="https://www.openstreetmap.org/?mlat=51.46168&mlon=45.932747#map=16/51.46168/45.932747" target="_blank">Открыть в OpenStreetMap</a>
+            </p>
+        </div>
+    </main>
+
+</div>
+
+<a id="btn-top" href="#" title="Наверх">Наверх</a>
+
+<footer> ©2026. СНПЗ. Все права защищены </footer>
+
+</body>
+</html>
