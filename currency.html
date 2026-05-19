@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс валюты - ПАО "Саратовский НПЗ"</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.png">
+    <script>
+        var currentRate = null;
+        var nominal = 1;
+
+        function formatDate(date) {
+            var yyyy = date.getFullYear();
+            var mm = String(date.getMonth() + 1).padStart(2, '0');
+            var dd = String(date.getDate()).padStart(2, '0');
+            return yyyy + '/' + mm + '/' + dd;
+        }
+
+        function formatLabel(date) {
+            return String(date.getDate()).padStart(2, '0') + '.' + String(date.getMonth() + 1).padStart(2, '0');
+        }
+
+        function drawChart(data) {
+            document.getElementById('chart-loading').style.display = 'none';
+            var svg = document.getElementById('bar-chart');
+            svg.style.display = 'block';
+
+            var barWidth = 30, barGap = 8, paddingLeft = 65, paddingRight = 25, paddingTop = 25, paddingBottom = 55, chartHeight = 300;
+            var totalWidth = paddingLeft + data.length * (barWidth + barGap) + paddingRight;
+            var totalHeight = chartHeight + paddingTop + paddingBottom;
+            svg.setAttribute('width', totalWidth);
+            svg.setAttribute('height', totalHeight);
+            svg.setAttribute('viewBox', '0 0 ' + totalWidth + ' ' + totalHeight);
+
+            var values = data.map(function(d) { return d.value; });
+            var minVal = Math.min.apply(null, values);
+            var maxVal = Math.max.apply(null, values);
+            var range = maxVal - minVal;
+            var scaleMin = minVal - range * 0.15;
+            var scaleMax = maxVal + range * 0.15;
+            var scaleRange = scaleMax - scaleMin;
+            var svgNS = 'http://www.w3.org/2000/svg';
+
+            while (svg.firstChild) {
+                svg.removeChild(svg.firstChild);
+            }
+
+            var bg = document.createElementNS(svgNS, 'rect');
+            bg.setAttribute('x', 0); bg.setAttribute('y', 0);
+            bg.setAttribute('width', totalWidth); bg.setAttribute('height', totalHeight);
+            bg.setAttribute('fill', '#fff');
+            svg.appendChild(bg);
+
+            for (var g = 0; g <= 5; g++) {
+                var gy = paddingTop + (chartHeight / 5) * g;
+                var gridVal = scaleMax - (scaleRange / 5) * g;
+                var line = document.createElementNS(svgNS, 'line');
+                line.setAttribute('x1', paddingLeft); line.setAttribute('y1', gy);
+                line.setAttribute('x2', totalWidth - paddingRight); line.setAttribute('y2', gy);
+                line.setAttribute('stroke', '#eef2f6'); line.setAttribute('stroke-width', '1');
+                svg.appendChild(line);
+                var txt = document.createElementNS(svgNS, 'text');
+                txt.setAttribute('x', paddingLeft - 8); txt.setAttribute('y', gy + 4);
+                txt.setAttribute('text-anchor', 'end'); txt.setAttribute('font-size', '11'); txt.setAttribute('fill', '#888');
+                txt.textContent = gridVal.toFixed(3);
+                svg.appendChild(txt);
+            }
+
+            var tooltipEl = document.getElementById('tooltip');
+            if (!tooltipEl) {
+                var newTooltip = document.createElement('div');
+                newTooltip.id = 'tooltip';
+                newTooltip.className = 'bar-tooltip';
+                document.body.appendChild(newTooltip);
+                tooltipEl = document.getElementById('tooltip');
+            }
+            var selectedBar = null;
+
+            data.forEach(function(item, i) {
+                var barHeight = ((item.value - scaleMin) / scaleRange) * chartHeight;
+                if (barHeight < 2) barHeight = 2;
+                var x = paddingLeft + i * (barWidth + barGap);
+                var y = paddingTop + chartHeight - barHeight;
+
+                var rect = document.createElementNS(svgNS, 'rect');
+                rect.setAttribute('x', x); rect.setAttribute('y', y);
+                rect.setAttribute('width', barWidth); rect.setAttribute('height', barHeight);
+                rect.setAttribute('fill', '#0146ad');
+                rect.setAttribute('rx', '3');
+                rect.setAttribute('cursor', 'pointer');
+                svg.appendChild(rect);
+
+                var dtxt = document.createElementNS(svgNS, 'text');
+                dtxt.setAttribute('x', x + barWidth / 2);
+                dtxt.setAttribute('y', paddingTop + chartHeight + 20);
+                dtxt.setAttribute('text-anchor', 'middle');
+                dtxt.setAttribute('font-size', '10');
+                dtxt.setAttribute('fill', '#666');
+                dtxt.textContent = item.label;
+                svg.appendChild(dtxt);
+
+                rect.addEventListener('click', function() {
+                    if (selectedBar) selectedBar.setAttribute('fill', '#0146ad');
+                    selectedBar = rect;
+                    rect.setAttribute('fill', '#ffcc00');
+                    document.getElementById('chart-selected').innerHTML =
+                        'Дата: ' + item.fullDate + '  |  1 ₴ = ' + item.value.toFixed(4) + ' ₽';
+                });
+                rect.addEventListener('mousemove', function(e) {
+                    tooltipEl.style.display = 'block';
+                    tooltipEl.style.left = (e.clientX + 12) + 'px';
+                    tooltipEl.style.top = (e.clientY - 10) + 'px';
+                    tooltipEl.textContent = item.fullDate + ': ' + item.value.toFixed(4) + ' ₽';
+                });
+                rect.addEventListener('mouseleave', function() { tooltipEl.style.display = 'none'; });
+            });
+        }
+
+        function loadCurrencyData() {
+            fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    var uah = data.Valute['UAH'];
+                    nominal = uah.Nominal;
+                    currentRate = uah.Value;
+                    var ratePerOne = currentRate / nominal;
+                    document.getElementById('rate-value').innerHTML =
+                        '1 ₴ = <strong>' + ratePerOne.toFixed(4) + ' ₽</strong>' +
+                        ' <span>(' + nominal + ' UAH = ' + currentRate.toFixed(4) + ' ₽)</span>';
+                    var dateStr = new Date(data.Date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+                    document.getElementById('rate-date').textContent = 'На ' + dateStr;
+                    document.getElementById('calc-note').textContent =
+                        '1 ₴ = ' + ratePerOne.toFixed(4) + ' ₽  |  1 ₽ = ' + (1 / ratePerOne).toFixed(4) + ' ₴';
+                })
+                .catch(function() {
+                    document.getElementById('rate-value').innerHTML = '<span style="color:#0146ad">Не удалось загрузить курс.</span>';
+                    document.getElementById('calc-note').textContent = 'Курс недоступен.';
+                });
+        }
+
+        function loadChartData() {
+            var chartData = [];
+            var today = new Date();
+            var datesToFetch = [];
+
+            for (var i = 59; i >= 0; i -= 3) {
+                var d = new Date(today);
+                d.setDate(today.getDate() - i);
+                datesToFetch.push(d);
+            }
+
+            var loaded = 0;
+            var total = datesToFetch.length;
+
+            datesToFetch.forEach(function(date) {
+                var dateStr = formatDate(date);
+                fetch('https://www.cbr-xml-daily.ru/archive/' + dateStr + '/daily_json.js')
+                    .then(function(r) { 
+                        if (!r.ok) throw new Error('No data');
+                        return r.json(); 
+                    })
+                    .then(function(data) {
+                        if (data.Valute && data.Valute['UAH']) {
+                            var uah = data.Valute['UAH'];
+                            chartData.push({
+                                label: formatLabel(date),
+                                value: uah.Value / uah.Nominal,
+                                fullDate: formatLabel(date) + '.' + date.getFullYear(),
+                                timestamp: date.getTime()
+                            });
+                        }
+                    })
+                    .catch(function() {})
+                    .finally(function() {
+                        loaded++;
+                        if (loaded === total) {
+                            chartData.sort(function(a, b) { return a.timestamp - b.timestamp; });
+                            if (chartData.length > 0) {
+                                drawChart(chartData);
+                            } else {
+                                document.getElementById('chart-loading').textContent = 'Нет данных для отображения.';
+                            }
+                        }
+                    });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCurrencyData();
+            loadChartData();
+
+            var inputRub = document.getElementById('input-rub');
+            var inputUah = document.getElementById('input-uah');
+
+            if (inputRub && inputUah) {
+                inputRub.addEventListener('input', function() {
+                    if (!currentRate || inputRub.value === '') { inputUah.value = ''; return; }
+                    inputUah.value = (parseFloat(inputRub.value) / (currentRate / nominal)).toFixed(2);
+                });
+
+                inputUah.addEventListener('input', function() {
+                    if (!currentRate || inputUah.value === '') { inputRub.value = ''; return; }
+                    inputRub.value = (parseFloat(inputUah.value) * (currentRate / nominal)).toFixed(2);
+                });
+            }
+
+            var btnTop = document.getElementById('btn-top');
+            if (btnTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        btnTop.classList.add('show');
+                    } else {
+                        btnTop.classList.remove('show');
+                    }
+                });
+                btnTop.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <nav>
+        <a href="index.html">О компании</a>
+        <a href="news.html">Новости</a>
+        <a href="currency.html" class="active">Курс валют</a>
+        <a href="contacts.html">Контакты</a>
+        <a href="video.html">Видео</a>
+    </nav>
+
+    <main>
+        <h1>Курс валют</h1>
+        <p style="margin-bottom: 25px; color: #666; font-size: 13px;">Актуальный курс украинской гривны (UAH) к российскому рублю</p>
+
+        <div class="rate-display">
+            <div class="rate-flag">🇺🇦</div>
+            <div class="rate-info">
+                <div class="rate-name">Украинская гривна (UAH) — курс ЦБ РФ</div>
+                <div class="rate-value" id="rate-value"><span class="rate-status">Загрузка...</span></div>
+            </div>
+            <div class="rate-date" id="rate-date"></div>
+        </div>
+
+        <div class="calculator">
+            <div class="calc-row">
+                <label for="input-rub">Российский рубль (₽):</label>
+                <input type="number" id="input-rub" placeholder="0" min="0" step="any">
+                <span class="calc-currency">₽</span>
+            </div>
+            <div class="calc-divider">⇅</div>
+            <div class="calc-row">
+                <label for="input-uah">Украинская гривна (₴):</label>
+                <input type="number" id="input-uah" placeholder="0" min="0" step="any">
+                <span class="calc-currency">₴</span>
+            </div>
+            <p class="calc-note" id="calc-note">Курс загружается...</p>
+        </div>
+
+        <div class="chart-section">
+            <h2>Изменение курса UAH за последние 2 месяца</h2>
+            <div class="chart-info" id="chart-selected">Нажмите на столбец, чтобы увидеть курс</div>
+            <div class="chart-container">
+                <div id="chart-loading">Загрузка данных диаграммы...</div>
+                <svg id="bar-chart" style="display:none;"></svg>
+            </div>
+        </div>
+    </main>
+</div>
+
+<a id="btn-top" href="#" title="Наверх">Наверх</a>
+
+<footer> ©2026. СНПЗ. Все права защищены </footer>
+
+</body>
+</html>
