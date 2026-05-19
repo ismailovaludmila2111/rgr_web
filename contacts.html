@@ -9,22 +9,20 @@
     <link rel="icon" href="favicon-32x32.png">
     <link rel="icon" href="favicon-16x16.png">
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var btnTop = document.getElementById('btn-top');
-            if (btnTop) {
-                window.addEventListener('scroll', function() {
-                    if (window.scrollY > 300) {
-                        btnTop.classList.add('show');
-                    } else {
-                        btnTop.classList.remove('show');
-                    }
-                });
-                btnTop.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
+    (function() {
+        const btnTop = document.getElementById('btn-top');
+        
+        btnTop.style.opacity = '1';
+        btnTop.style.visibility = 'visible';
+        
+        btnTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
+    })();
     </script>
 </head>
 <body>
